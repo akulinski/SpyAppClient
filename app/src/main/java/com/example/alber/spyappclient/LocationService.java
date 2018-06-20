@@ -18,14 +18,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class LocationService extends IntentService {
-    private Executor executor;
+    private Executor executor= Executors.newFixedThreadPool(20);;
     private GPSTracker mGPS;
 
-    LocationService(Context context) {
+    LocationService() {
         super(LocationService.class.getSimpleName());
-        this.executor= Executors.newFixedThreadPool(20);
-        this.mGPS= new GPSTracker(this);
-
     }
 
 
@@ -36,22 +33,15 @@ public class LocationService extends IntentService {
 
     protected void getLoc() {
         Log.d("while","running");
-        StringBuilder stringBuilder=new StringBuilder();
-        stringBuilder.append(mGPS.getLongitude());
-        stringBuilder.append(mGPS.getLatitude());
-        Log.d("loc",stringBuilder.toString());
-    }
-
-    public void onStart(Intent intent, int startId) {
-        // TODO Auto-generated method stub
-        super.onStart(intent, startId);
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true){
-                    getLoc();
-
+                    Log.d("while","running");
+                    StringBuilder stringBuilder=new StringBuilder();
+                    stringBuilder.append(mGPS.getLongitude());
+                    stringBuilder.append(mGPS.getLatitude());
+                    Log.d("loc",stringBuilder.toString());
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -60,7 +50,18 @@ public class LocationService extends IntentService {
                 }
             }
         }).run();
-      //  this.stopSelf();
+
+    }
+
+    public void onStart(Intent intent, int startId) {
+        // TODO Auto-generated method stub
+        super.onStart(intent, startId);
+
+        mGPS = new GPSTracker(this);
+
+        Log.d("started","true");
+        getLoc();
+        this.stopSelf();
     }
 
     @Override

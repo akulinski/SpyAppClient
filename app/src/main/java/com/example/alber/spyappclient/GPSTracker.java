@@ -41,7 +41,7 @@ public class GPSTracker implements LocationListener {
     protected LocationManager locationManager;
 
     public GPSTracker(Context context) {
-        Log.d("started","true");
+
         this.mContext = context;
         getLocation();
     }
@@ -53,18 +53,15 @@ public class GPSTracker implements LocationListener {
      */
     public Location getLocation() {
         try {
-            locationManager = (LocationManager) mContext
-                    .getSystemService(Context.LOCATION_SERVICE);
+            locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
             // getting GPS status
-            isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             Log.v("isGPSEnabled", "=" + isGPSEnabled);
 
             // getting network status
-            isNetworkEnabled = locationManager
-                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             Log.v("isNetworkEnabled", "=" + isNetworkEnabled);
 
