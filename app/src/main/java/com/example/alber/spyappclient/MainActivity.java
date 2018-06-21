@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private static final String[] INITIAL_PERMS={
@@ -21,13 +22,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button b1=(Button) findViewById(R.id.button2);
         intent =new Intent(this, LocationService.class);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Check permission
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        } else {
-
-            startService(intent);
+        }
+        else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    startService(intent);
+                }
+            }).run();
         }
     }
 

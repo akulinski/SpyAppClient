@@ -49,7 +49,7 @@ public class LocationService extends IntentService {
                     }
                 }
             }
-        }).run();
+        }).start();
 
     }
 
@@ -69,7 +69,5 @@ public class LocationService extends IntentService {
         // TODO Auto-generated method stub
         super.onDestroy();
     }
-
-
 
 }
