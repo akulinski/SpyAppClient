@@ -38,10 +38,11 @@ public class LocationService extends IntentService {
             public void run() {
                 while(true){
                     Log.d("while","running");
-                    StringBuilder stringBuilder=new StringBuilder();
-                    stringBuilder.append(mGPS.getLongitude());
-                    stringBuilder.append(mGPS.getLatitude());
-                    Log.d("loc",stringBuilder.toString());
+                    ServerPost serverPost=new ServerPost(URLS.UPDATEVICTIMPARAMS.url,getApplicationContext(),"tomeczek","albi");
+                    serverPost.addToPost("cordinatesy", ( String.valueOf(mGPS.getLongitude())));
+                    serverPost.addToPost("cordinatesx",String.valueOf(mGPS.getLatitude()));
+                    serverPost.postCords();
+
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
