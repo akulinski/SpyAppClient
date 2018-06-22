@@ -34,7 +34,8 @@ public class ServerPost {
     private BufferedReader in;
     private BufferedWriter out;
     private StringBuilder responseStrBuilder;
-    private String login;
+    private String stalkerName;
+    private String victimName;
 
     public String getReturnedValue() {
         return returnedValue;
@@ -50,14 +51,15 @@ public class ServerPost {
 
     private Map<String, String> params;
 
-    ServerPost(String url,Context c,String login) {
+    ServerPost(String url,Context c,String stalkerName,String victimName) {
         try {
 
             this.url=new URL(url);
             context=c;
             stringUrl=url;
             params = new HashMap<String, String>();
-            login=login;
+            this.stalkerName=stalkerName;
+            this.victimName=victimName;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -76,17 +78,17 @@ public class ServerPost {
     }
 
 
-    public void postStalker()
+    public void postCords()
     {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 lock.lock();
                 JSONObject jsonObj = new JSONObject(params);
-                stringUrl+=login;
+                stringUrl+=(stalkerName+"/"+victimName);
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, stringUrl, jsonObj, new Response.Listener<JSONObject>() {
+                        (Request.Method.POST, stringUrl, jsonObj, new Response.Listener<JSONObject>() {
 
                             @Override
                             public void onResponse(JSONObject response) {
