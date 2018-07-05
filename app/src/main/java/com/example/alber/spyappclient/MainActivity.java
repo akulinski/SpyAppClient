@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,18 +17,21 @@ public class MainActivity extends AppCompatActivity {
 
     static public final int REQUEST_LOCATION = 1;
     Intent intent;
-
-
-
-
+    Intent cameraIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AddLink addLink=new AddLink("tomeczek","link3",getApplicationContext());
         addLink.postlink();
-
+        cameraIntent = new Intent(this,CapturePhoto.class);
         Button b1=(Button) findViewById(R.id.button2);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(cameraIntent);
+            }
+        });
         intent =new Intent(this, LocationService.class);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Check permission
