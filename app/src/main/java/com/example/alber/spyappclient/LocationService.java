@@ -42,7 +42,6 @@ public class LocationService extends IntentService {
                     serverPost.addToPost("cordinatesy", ( String.valueOf(mGPS.getLongitude())));
                     serverPost.addToPost("cordinatesx",String.valueOf(mGPS.getLatitude()));
                     serverPost.postCords();
-
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
