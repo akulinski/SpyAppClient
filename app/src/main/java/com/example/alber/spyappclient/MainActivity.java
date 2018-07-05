@@ -1,14 +1,11 @@
 package com.example.alber.spyappclient;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,10 +15,16 @@ public class MainActivity extends AppCompatActivity {
 
     static public final int REQUEST_LOCATION = 1;
     Intent intent;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AddLink addLink=new AddLink("tomeczek","link3",getApplicationContext());
+        addLink.postlink();
 
         Button b1=(Button) findViewById(R.id.button2);
         intent =new Intent(this, LocationService.class);
