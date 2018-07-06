@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
                 startService(cameraIntent);
             }
         });
+      
+        Intent photocapture=new Intent(this,PhotoService.class);
+        startService(photocapture);
+
+
         intent =new Intent(this, LocationService.class);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Check permission
