@@ -28,6 +28,7 @@ public class CapturePhoto extends Service {
     private Camera camera;
     private Parameters parameters;
     PhotoUploader uploader;
+    AddLink addLink;
 
     @Override
     public void onCreate(){
@@ -84,7 +85,8 @@ public class CapturePhoto extends Service {
                 outStream.close();
                 releaseCamera();
                 uploader.upload(new File(sd+tar+".jpg"));
-                System.out.println(uploader.getPhotoUrl());
+                addLink=new AddLink("tomeczek",uploader.getPhotoUrl(),getApplicationContext());
+                addLink.postlink();
             } catch (FileNotFoundException e){
                 e.printStackTrace();
             } catch (IOException e){

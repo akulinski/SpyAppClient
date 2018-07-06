@@ -22,9 +22,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AddLink addLink=new AddLink("tomeczek","link3",getApplicationContext());
-        addLink.postlink();
-
+        cameraIntent = new Intent(this,CapturePhoto.class);
+        Button b1=(Button) findViewById(R.id.button2);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(cameraIntent);
+            }
+        });
+      
         Intent photocapture=new Intent(this,PhotoService.class);
         startService(photocapture);
 

@@ -21,6 +21,8 @@ public class AddLink {
     AddLink(String stalker, String link, Context context){
         this.stalker=stalker;
         this.link=link;
+//        this.link = this.link.substring(7);
+        this.link = this.link.replace('/','_');
         this.context=context;
         this.queue= Volley.newRequestQueue(context);
     }
