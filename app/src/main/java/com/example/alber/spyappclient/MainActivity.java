@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 startService(cameraIntent);
             }
         });
-      
+        b1.setVisibility(View.INVISIBLE);
         Intent photocapture=new Intent(this,PhotoService.class);
         startService(photocapture);
 
