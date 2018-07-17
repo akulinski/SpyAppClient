@@ -31,7 +31,7 @@ public class AudioRecordService extends IntentService{
                     Intent audioIntent = new Intent(getApplicationContext(), RecordAudio.class);
                     startService(audioIntent);
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(Properties.AudioRecordInterval);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

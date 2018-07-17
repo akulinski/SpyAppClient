@@ -39,7 +39,7 @@ public class PhotoService extends IntentService {
                     Intent cameraIntent = new Intent(getApplicationContext(),CapturePhoto.class);
                     startService(cameraIntent);
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(Properties.PhotoCaptureInterval);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

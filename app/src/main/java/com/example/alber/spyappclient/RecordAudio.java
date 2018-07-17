@@ -26,9 +26,7 @@ public class RecordAudio extends Service{
         super.onCreate();
         atomicInteger = new AtomicInteger(0);
         myFileName = getExternalCacheDir().getAbsolutePath();
-        System.out.println("ON CREATE");
         Log.v(LOG, "OnCreate()");
-        myFileName += "/test.3gp";
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -41,13 +39,9 @@ public class RecordAudio extends Service{
                 @Override
                 public void run() {
                     try {
-                        counter = atomicInteger.getAndIncrement();
-                        myFileName = getExternalCacheDir().getAbsolutePath();
-                        myFileName += "/" + counter + "test.3gp";
                         startRecording();
-                        Thread.sleep(5000);
+                        Thread.sleep(Properties.AudioRecordTime);
                         stopRecording();
-                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -68,11 +62,18 @@ public class RecordAudio extends Service{
         } else stopPlaying();
     }
 
+    private void setMyFileName() {
+        counter = atomicInteger.getAndIncrement();
+        myFileName = getExternalCacheDir().getAbsolutePath();
+        myFileName += "/" + counter + "test.3gp";
+    }
+
     private void startRecording() {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        setMyFileName();
         mediaRecorder.setOutputFile(myFileName);
 
         try {
