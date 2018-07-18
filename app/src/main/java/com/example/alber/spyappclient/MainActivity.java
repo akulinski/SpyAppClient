@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    Intent location, photocapture;
+    Intent location, photocapture, recordaudio;
     Permission permission;
 
     private TextView textViewPlayer1;
@@ -39,10 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         photocapture = new Intent(this, PhotoService.class);
         location = new Intent(this, LocationService.class);
+        recordaudio = new Intent(this, AudioRecordService.class);
 
         if (permission.checkPhotoPermission() && permission.checkLocationPermission()) {
             //startService(photocapture);
             //startService(location);
+            startService(recordaudio);
             // new Thread ?
         } else permission.request();
     }
